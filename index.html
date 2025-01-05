@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>网站镜像</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .form-container input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .form-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form id="mirror-form">
+            <input type="text" id="url" name="url" placeholder="请输入URL" required>
+            <input type="text" id="refer" name="refer" placeholder="请输入Refer（可选）">
+            <input type="text" id="proxyurl" name="proxyurl" placeholder="请输入Proxy URL（可选）">
+            <input type="submit" value="提交">
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('mirror-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const url = document.getElementById('url').value.trim();
+            const refer = document.getElementById('refer').value.trim();
+            const proxyurl = document.getElementById('proxyurl').value.trim();
+
+            if (!url) {
+                alert('URL不能为空');
+                return;
+            }
+
+            let redirectUrl = `./crawl.php?url=${encodeURIComponent(url)}`;
+
+            if (refer) {
+                redirectUrl += `&refer=${encodeURIComponent(refer)}`;
+            }
+
+            if (proxyurl) {
+                redirectUrl += `&proxyurl=${encodeURIComponent(proxyurl)}`;
+            }
+
+            window.location.href = redirectUrl;
+        });
+    </script>
+</body>
+</html>
